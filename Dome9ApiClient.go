@@ -55,9 +55,6 @@ func (c *Dome9) sendRequest(req *http.Request, v interface{}) error {
 		return fmt.Errorf("HTTP Error, Status code: %d", res.StatusCode)
 	}
 
-	/*body, err := ioutil.ReadAll(res.Body)
-	fmt.Println(string(body))*/
-
 	if err = json.NewDecoder(res.Body).Decode(&v); err != nil {
 		return err
 	}

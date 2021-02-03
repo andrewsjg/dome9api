@@ -283,6 +283,8 @@ type TestResults []struct {
 	} `json:"additionalFields"`
 }
 
+// TODO: Look at breaking this into smaller structs possibly to make it easier to follow
+
 //BundleResult - A result back from a Bundle run
 type BundleResult []struct {
 	Tests []struct {
