@@ -67,11 +67,30 @@ func basicAuth(username string, password string) string {
 	return base64.StdEncoding.EncodeToString([]byte(auth))
 }
 
-//GetAccounts - Get all Accounts from Dome9
-func (c *Dome9) GetAccounts(ctx context.Context) (Accounts, error) {
-	accounts := Accounts{}
+//GetAWSAccounts - Get all AWS Accounts from Dome9
+func (c *Dome9) GetAWSAccounts(ctx context.Context) (AWSCloudAccounts, error) {
+	accounts := AWSCloudAccounts{}
 
 	req, err := http.NewRequest("GET", fmt.Sprintf("%s/cloudaccounts", c.BaseURL), nil)
+
+	if err != nil {
+		return accounts, err
+	}
+
+	req = req.WithContext(ctx)
+
+	if err := c.sendRequest(req, &accounts); err != nil {
+		return accounts, err
+	}
+
+	return accounts, nil
+}
+
+//GetAzureAccounts - Get all AWS Accounts from Dome9
+func (c *Dome9) GetAzureAccounts(ctx context.Context) (AzureCloudAccounts, error) {
+	accounts := AzureCloudAccounts{}
+
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/azurecloudaccount", c.BaseURL), nil)
 
 	if err != nil {
 		return accounts, err

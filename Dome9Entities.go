@@ -2,8 +2,8 @@ package dome9api
 
 import "time"
 
-//Accounts Object contains all accounts know to Dome9
-type Accounts []struct {
+//AWSCloudAccounts Object contains all accounts know to Dome9
+type AWSCloudAccounts []struct {
 	ID                    string      `json:"id"`
 	Vendor                string      `json:"vendor"`
 	Name                  string      `json:"name"`
@@ -39,6 +39,26 @@ type Accounts []struct {
 		CodeAnalyzerEnabled           bool `json:"codeAnalyzerEnabled"`
 		CodeDependencyAnalyzerEnabled bool `json:"codeDependencyAnalyzerEnabled"`
 	} `json:"serverless"`
+}
+
+//AzureCloudAccounts - Represents and Azure Subscription
+type AzureCloudAccounts []struct {
+	ID             string `json:"id"`
+	Name           string `json:"name"`
+	SubscriptionID string `json:"subscriptionId"`
+	TenantID       string `json:"tenantId"`
+	Credentials    struct {
+		ClientID       string      `json:"clientId"`
+		ClientPassword interface{} `json:"clientPassword"`
+	} `json:"credentials"`
+	OperationMode          string      `json:"operationMode"`
+	Error                  interface{} `json:"error"`
+	CreationDate           time.Time   `json:"creationDate"`
+	OrganizationalUnitID   string      `json:"organizationalUnitId"`
+	OrganizationalUnitPath string      `json:"organizationalUnitPath"`
+	OrganizationalUnitName string      `json:"organizationalUnitName"`
+	Vendor                 string      `json:"vendor"`
+	Magellan               bool        `json:"magellan"`
 }
 
 //ProtectedAssetRequest is the payload for the protected assett search
