@@ -150,6 +150,8 @@ type BundleFilters struct {
 	To                        time.Time                   `json:"to"`
 }
 
+// TODO: Look at breaking these two entities into smaller structs possibly to make it easier to follow and avoid duplication
+
 //TestResults - Assessment Test Results
 type TestResults []struct {
 	Tests []struct {
@@ -303,7 +305,7 @@ type TestResults []struct {
 	} `json:"additionalFields"`
 }
 
-// AzureBundleResults - Resutls from a ruleset bundle assesment run for Azure
+// AzureBundleResults - Results from a ruleset bundle assesment run for Azure
 type AzureBundleResults []struct {
 	Tests []struct {
 		Error             interface{} `json:"error"`
@@ -625,9 +627,7 @@ type AzureBundleResults []struct {
 	AdditionalFields        interface{} `json:"additionalFields"`
 }
 
-// TODO: Look at breaking this into smaller structs possibly to make it easier to follow
-
-//AWSBundleResults - Resutls from a ruleset bundle assesment run for AWS
+//AWSBundleResults - Results from a ruleset bundle assesment run for AWS
 type AWSBundleResults []struct {
 	Tests []struct {
 		Error             interface{} `json:"error"`
