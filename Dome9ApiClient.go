@@ -142,13 +142,40 @@ func (c *Dome9) GetProtectedAssets(ctx context.Context, pageSize int, includedEn
 	return result, nil
 }
 
-//GetBundleResults - Returns the results on a ruleset bundle assessment on an account
-func (c *Dome9) GetBundleResults(ctx context.Context, bundleID int, cloudAccountids string, fromTime time.Time) (BundleResult, error) {
-	testResults := BundleResult{}
+//TODO: Is there a way to collapse these two methods into one and select on AzureSub ID vs AWS Account ID?
+
+//GetAzureBundleResults - Returns the results on a ruleset bundle assessment on an Azure Subscription
+func (c *Dome9) GetAzureBundleResults(ctx context.Context, bundleID int, azureSubscriptionIDs string, fromTime time.Time) (AzureBundleResults, error) {
+	testResults := AzureBundleResults{}
 
 	params := url.Values{}
 	params.Add("bundleId", fmt.Sprintf("%d", bundleID))
-	params.Add("cloudAccountIds", cloudAccountids)
+	params.Add("cloudAccountIds", azureSubscriptionIDs)
+	params.Add("fromTime", fromTime.Format(time.RFC3339))
+
+	req, err := http.NewRequest("GET", fmt.Sprint(c.BaseURL+"/AssessmentHistoryV2/bundleResults?"+params.Encode()), nil)
+
+	if err != nil {
+		return testResults, err
+	}
+
+	req = req.WithContext(ctx)
+
+	if err := c.sendRequest(req, &testResults); err != nil {
+		return testResults, err
+	}
+
+	return testResults, nil
+
+}
+
+//GetAWSBundleResults - Returns the results on a ruleset bundle assessment on an AWS account
+func (c *Dome9) GetAWSBundleResults(ctx context.Context, bundleID int, awscloudAccountids string, fromTime time.Time) (AWSBundleResults, error) {
+	testResults := AWSBundleResults{}
+
+	params := url.Values{}
+	params.Add("bundleId", fmt.Sprintf("%d", bundleID))
+	params.Add("cloudAccountIds", awscloudAccountids)
 	params.Add("fromTime", fromTime.Format(time.RFC3339))
 
 	req, err := http.NewRequest("GET", fmt.Sprint(c.BaseURL+"/AssessmentHistoryV2/bundleResults?"+params.Encode()), nil)

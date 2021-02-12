@@ -303,10 +303,332 @@ type TestResults []struct {
 	} `json:"additionalFields"`
 }
 
+// AzureBundleResults - Resutls from a ruleset bundle assesment run for Azure
+type AzureBundleResults []struct {
+	Tests []struct {
+		Error             interface{} `json:"error"`
+		TestedCount       int         `json:"testedCount"`
+		RelevantCount     int         `json:"relevantCount"`
+		NonComplyingCount int         `json:"nonComplyingCount"`
+		ExclusionStats    struct {
+			TestedCount       int `json:"testedCount"`
+			RelevantCount     int `json:"relevantCount"`
+			NonComplyingCount int `json:"nonComplyingCount"`
+		} `json:"exclusionStats"`
+		EntityResults []struct {
+			ValidationStatus string      `json:"validationStatus"`
+			IsRelevant       bool        `json:"isRelevant"`
+			IsValid          bool        `json:"isValid"`
+			IsExcluded       bool        `json:"isExcluded"`
+			ExclusionID      interface{} `json:"exclusionId"`
+			RemediationID    interface{} `json:"remediationId"`
+			Error            string      `json:"error"`
+			TestObj          struct {
+				ID          string `json:"id"`
+				Dome9ID     string `json:"dome9Id"`
+				EntityType  string `json:"entityType"`
+				EntityIndex int    `json:"entityIndex"`
+			} `json:"testObj"`
+		} `json:"entityResults"`
+		Rule struct {
+			Name          string `json:"name"`
+			Severity      string `json:"severity"`
+			Logic         string `json:"logic"`
+			Description   string `json:"description"`
+			Remediation   string `json:"remediation"`
+			ComplianceTag string `json:"complianceTag"`
+			Domain        string `json:"domain"`
+			Priority      string `json:"priority"`
+			ControlTitle  string `json:"controlTitle"`
+			RuleID        string `json:"ruleId"`
+			Category      string `json:"category"`
+			LogicHash     string `json:"logicHash"`
+			IsDefault     bool   `json:"isDefault"`
+		} `json:"rule"`
+		TestPassed bool `json:"testPassed"`
+	} `json:"tests"`
+	TestEntities struct {
+		VmssInstance []struct {
+			MachineImage struct {
+				Offer     string `json:"offer"`
+				Publisher string `json:"publisher"`
+				Sku       string `json:"sku"`
+				Version   string `json:"version"`
+			} `json:"machineImage"`
+			ResourceGroup struct {
+				Tags []struct {
+					Key   string `json:"key"`
+					Value string `json:"value"`
+				} `json:"tags"`
+				Locks            interface{} `json:"locks"`
+				ID               string      `json:"id"`
+				Type             string      `json:"type"`
+				Name             string      `json:"name"`
+				Dome9ID          string      `json:"dome9Id"`
+				AccountNumber    string      `json:"accountNumber"`
+				Region           string      `json:"region"`
+				ExternalFindings interface{} `json:"externalFindings"`
+			} `json:"resourceGroup"`
+			Size            string      `json:"size"`
+			OperatingSystem string      `json:"operatingSystem"`
+			VirtualHardDisk interface{} `json:"virtualHardDisk"`
+			AvailabilitySet interface{} `json:"availabilitySet"`
+			Nics            []struct {
+				ID   string `json:"id"`
+				Name string `json:"name"`
+				Tags struct {
+				} `json:"tags"`
+				ResourceGroup struct {
+					Tags []struct {
+						Key   string `json:"key"`
+						Value string `json:"value"`
+					} `json:"tags"`
+					Locks            interface{} `json:"locks"`
+					ID               string      `json:"id"`
+					Type             string      `json:"type"`
+					Name             string      `json:"name"`
+					Dome9ID          string      `json:"dome9Id"`
+					AccountNumber    string      `json:"accountNumber"`
+					Region           string      `json:"region"`
+					ExternalFindings interface{} `json:"externalFindings"`
+				} `json:"resourceGroup"`
+				Region               interface{} `json:"region"`
+				EnableIPForwarding   bool        `json:"enableIpForwarding"`
+				Primary              bool        `json:"primary"`
+				MacAddress           string      `json:"macAddress"`
+				Etag                 string      `json:"etag"`
+				NetworkSecurityGroup struct {
+					InboundRules []struct {
+						SourceApplicationSecurityGroups      interface{} `json:"sourceApplicationSecurityGroups"`
+						DestinationApplicationSecurityGroups interface{} `json:"destinationApplicationSecurityGroups"`
+						Name                                 string      `json:"name"`
+						Number                               int         `json:"number"`
+						Protocol                             string      `json:"protocol"`
+						Source                               string      `json:"source"`
+						Destination                          string      `json:"destination"`
+						DestinationPort                      int         `json:"destinationPort"`
+						DestinationPortTo                    int         `json:"destinationPortTo"`
+						Direction                            string      `json:"direction"`
+						Action                               string      `json:"action"`
+					} `json:"inboundRules"`
+					OutboundRules       []interface{} `json:"outboundRules"`
+					DefaultInboundRules []struct {
+						SourceApplicationSecurityGroups      interface{} `json:"sourceApplicationSecurityGroups"`
+						DestinationApplicationSecurityGroups interface{} `json:"destinationApplicationSecurityGroups"`
+						Name                                 string      `json:"name"`
+						Number                               int         `json:"number"`
+						Protocol                             string      `json:"protocol"`
+						Source                               string      `json:"source"`
+						Destination                          string      `json:"destination"`
+						DestinationPort                      int         `json:"destinationPort"`
+						DestinationPortTo                    int         `json:"destinationPortTo"`
+						Direction                            string      `json:"direction"`
+						Action                               string      `json:"action"`
+					} `json:"defaultInboundRules"`
+					DefaultOutboundRules []struct {
+						SourceApplicationSecurityGroups      interface{} `json:"sourceApplicationSecurityGroups"`
+						DestinationApplicationSecurityGroups interface{} `json:"destinationApplicationSecurityGroups"`
+						Name                                 string      `json:"name"`
+						Number                               int         `json:"number"`
+						Protocol                             string      `json:"protocol"`
+						Source                               string      `json:"source"`
+						Destination                          string      `json:"destination"`
+						DestinationPort                      int         `json:"destinationPort"`
+						DestinationPortTo                    int         `json:"destinationPortTo"`
+						Direction                            string      `json:"direction"`
+						Action                               string      `json:"action"`
+					} `json:"defaultOutboundRules"`
+					ResourceGroup struct {
+						Tags []struct {
+							Key   string `json:"key"`
+							Value string `json:"value"`
+						} `json:"tags"`
+						Locks            interface{} `json:"locks"`
+						ID               string      `json:"id"`
+						Type             string      `json:"type"`
+						Name             string      `json:"name"`
+						Dome9ID          string      `json:"dome9Id"`
+						AccountNumber    string      `json:"accountNumber"`
+						Region           string      `json:"region"`
+						ExternalFindings interface{} `json:"externalFindings"`
+					} `json:"resourceGroup"`
+					Etag               string        `json:"etag"`
+					NetworkAssetsStats []interface{} `json:"networkAssetsStats"`
+					NsgFlowLog         interface{}   `json:"nsgFlowLog"`
+					Tags               []interface{} `json:"tags"`
+					Locks              []interface{} `json:"locks"`
+					ID                 string        `json:"id"`
+					Type               string        `json:"type"`
+					Name               string        `json:"name"`
+					Dome9ID            string        `json:"dome9Id"`
+					AccountNumber      string        `json:"accountNumber"`
+					Region             string        `json:"region"`
+					ExternalFindings   interface{}   `json:"externalFindings"`
+				} `json:"networkSecurityGroup"`
+				IPConfigurations []struct {
+					Name                      string      `json:"name"`
+					Primary                   bool        `json:"primary"`
+					PublicIPAddress           string      `json:"publicIpAddress"`
+					PublicIPAllocationMethod  string      `json:"publicIpAllocationMethod"`
+					PublicIPAddressVersion    string      `json:"publicIpAddressVersion"`
+					PrivateIPAddress          string      `json:"privateIpAddress"`
+					ResourceURI               string      `json:"resourceUri"`
+					SubnetID                  string      `json:"subnetId"`
+					ApplicationSecurityGroups interface{} `json:"applicationSecurityGroups"`
+				} `json:"ipConfigurations"`
+				Subnet struct {
+					RouteTable    string `json:"routeTable"`
+					SecurityGroup struct {
+						InboundRules []struct {
+							SourceApplicationSecurityGroups      interface{} `json:"sourceApplicationSecurityGroups"`
+							DestinationApplicationSecurityGroups interface{} `json:"destinationApplicationSecurityGroups"`
+							Name                                 string      `json:"name"`
+							Number                               int         `json:"number"`
+							Protocol                             string      `json:"protocol"`
+							Source                               string      `json:"source"`
+							Destination                          string      `json:"destination"`
+							DestinationPort                      int         `json:"destinationPort"`
+							DestinationPortTo                    int         `json:"destinationPortTo"`
+							Direction                            string      `json:"direction"`
+							Action                               string      `json:"action"`
+						} `json:"inboundRules"`
+						OutboundRules        []interface{} `json:"outboundRules"`
+						DefaultInboundRules  []interface{} `json:"defaultInboundRules"`
+						DefaultOutboundRules []interface{} `json:"defaultOutboundRules"`
+						ResourceGroup        interface{}   `json:"resourceGroup"`
+						Etag                 string        `json:"etag"`
+						NetworkAssetsStats   []interface{} `json:"networkAssetsStats"`
+						NsgFlowLog           interface{}   `json:"nsgFlowLog"`
+						Tags                 []interface{} `json:"tags"`
+						Locks                interface{}   `json:"locks"`
+						ID                   string        `json:"id"`
+						Type                 string        `json:"type"`
+						Name                 string        `json:"name"`
+						Dome9ID              string        `json:"dome9Id"`
+						AccountNumber        string        `json:"accountNumber"`
+						Region               string        `json:"region"`
+						ExternalFindings     interface{}   `json:"externalFindings"`
+					} `json:"securityGroup"`
+					Locks            []interface{} `json:"locks"`
+					Type             string        `json:"type"`
+					AccountNumber    string        `json:"accountNumber"`
+					Region           string        `json:"region"`
+					Source           string        `json:"source"`
+					ExternalFindings interface{}   `json:"externalFindings"`
+					Name             string        `json:"name"`
+					AddressRange     string        `json:"addressRange"`
+					VirtualNetwork   string        `json:"virtualNetwork"`
+					Tags             []interface{} `json:"tags"`
+					ResourceGroup    struct {
+						Tags []struct {
+							Key   string `json:"key"`
+							Value string `json:"value"`
+						} `json:"tags"`
+						Locks            interface{} `json:"locks"`
+						ID               string      `json:"id"`
+						Type             string      `json:"type"`
+						Name             string      `json:"name"`
+						Dome9ID          string      `json:"dome9Id"`
+						AccountNumber    string      `json:"accountNumber"`
+						Region           string      `json:"region"`
+						ExternalFindings interface{} `json:"externalFindings"`
+					} `json:"resourceGroup"`
+					Dome9ID string `json:"dome9Id"`
+					ID      string `json:"id"`
+				} `json:"subnet"`
+			} `json:"nics"`
+			IsPublic       bool   `json:"isPublic"`
+			VirtualNetwork string `json:"virtualNetwork"`
+			IsRunning      bool   `json:"isRunning"`
+			HasAgent       bool   `json:"hasAgent"`
+			Disks          []struct {
+				Name      string `json:"name"`
+				Encrypted bool   `json:"encrypted"`
+			} `json:"disks"`
+			Vmid         string `json:"vmid"`
+			InstanceID   string `json:"instanceId"`
+			IsScaleSetVM bool   `json:"isScaleSetVm"`
+			Tags         []struct {
+				Key   string `json:"key"`
+				Value string `json:"value"`
+			} `json:"tags"`
+			Locks            []interface{} `json:"locks"`
+			ID               string        `json:"id"`
+			Type             string        `json:"type"`
+			Name             string        `json:"name"`
+			Dome9ID          string        `json:"dome9Id"`
+			AccountNumber    string        `json:"accountNumber"`
+			Region           string        `json:"region"`
+			ExternalFindings interface{}   `json:"externalFindings"`
+		} `json:"vmssInstance"`
+	} `json:"testEntities"`
+	Exclusions     []interface{} `json:"exclusions"`
+	Remediations   []interface{} `json:"remediations"`
+	DataSyncStatus []struct {
+		EntityType                   string        `json:"entityType"`
+		RecentlySuccessfulSync       interface{}   `json:"recentlySuccessfulSync"`
+		GeneralFetchPermissionIssues bool          `json:"generalFetchPermissionIssues"`
+		EntitiesWithPermissionIssues []interface{} `json:"entitiesWithPermissionIssues"`
+	} `json:"dataSyncStatus"`
+	CreatedTime      time.Time `json:"createdTime"`
+	ID               int       `json:"id"`
+	AssessmentID     string    `json:"assessmentId"`
+	TriggeredBy      string    `json:"triggeredBy"`
+	AssessmentPassed bool      `json:"assessmentPassed"`
+	HasErrors        bool      `json:"hasErrors"`
+	Stats            struct {
+		Passed                int `json:"passed"`
+		PassedRulesBySeverity struct {
+			Informational int `json:"informational"`
+			Low           int `json:"low"`
+			Medium        int `json:"medium"`
+			High          int `json:"high"`
+			Critical      int `json:"critical"`
+		} `json:"passedRulesBySeverity"`
+		Failed                int `json:"failed"`
+		FailedRulesBySeverity struct {
+			Informational int `json:"informational"`
+			Low           int `json:"low"`
+			Medium        int `json:"medium"`
+			High          int `json:"high"`
+			Critical      int `json:"critical"`
+		} `json:"failedRulesBySeverity"`
+		Error                   int `json:"error"`
+		FailedTests             int `json:"failedTests"`
+		LogicallyTested         int `json:"logicallyTested"`
+		FailedEntities          int `json:"failedEntities"`
+		ExcludedTests           int `json:"excludedTests"`
+		ExcludedFailedTests     int `json:"excludedFailedTests"`
+		ExcludedRules           int `json:"excludedRules"`
+		ExcludedRulesBySeverity struct {
+			Informational int `json:"informational"`
+			Low           int `json:"low"`
+			Medium        int `json:"medium"`
+			High          int `json:"high"`
+			Critical      int `json:"critical"`
+		} `json:"excludedRulesBySeverity"`
+	} `json:"stats"`
+	Request struct {
+		IsTemplate             bool   `json:"isTemplate"`
+		ID                     int    `json:"id"`
+		Name                   string `json:"name"`
+		Description            string `json:"description"`
+		Dome9CloudAccountID    string `json:"dome9CloudAccountId"`
+		ExternalCloudAccountID string `json:"externalCloudAccountId"`
+		CloudAccountID         string `json:"cloudAccountId"`
+		CloudAccountType       string `json:"cloudAccountType"`
+		RequestID              string `json:"requestId"`
+		ShouldMinimizeResult   bool   `json:"shouldMinimizeResult"`
+	} `json:"request"`
+	HasDataSyncStatusIssues bool        `json:"hasDataSyncStatusIssues"`
+	ComparisonCustomID      interface{} `json:"comparisonCustomId"`
+	AdditionalFields        interface{} `json:"additionalFields"`
+}
+
 // TODO: Look at breaking this into smaller structs possibly to make it easier to follow
 
-//BundleResult - A result back from a Bundle run
-type BundleResult []struct {
+//AWSBundleResults - Resutls from a ruleset bundle assesment run for AWS
+type AWSBundleResults []struct {
 	Tests []struct {
 		Error             interface{} `json:"error"`
 		TestedCount       int         `json:"testedCount"`
