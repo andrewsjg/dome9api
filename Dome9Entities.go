@@ -41,7 +41,7 @@ type AWSCloudAccounts []struct {
 	} `json:"serverless"`
 }
 
-//AzureCloudAccounts - Represents and Azure Subscription
+//AzureCloudAccounts - Represents Azure Subscriptions
 type AzureCloudAccounts []struct {
 	ID             string `json:"id"`
 	Name           string `json:"name"`
@@ -59,6 +59,49 @@ type AzureCloudAccounts []struct {
 	OrganizationalUnitName string      `json:"organizationalUnitName"`
 	Vendor                 string      `json:"vendor"`
 	Magellan               bool        `json:"magellan"`
+}
+
+//GoogleCloudAccounts - Represents GCP projects
+type GoogleCloudAccounts []struct {
+	ID                     string      `json:"id"`
+	Name                   string      `json:"name"`
+	ProjectID              string      `json:"projectId"`
+	CreationDate           time.Time   `json:"creationDate"`
+	OrganizationalUnitID   string      `json:"organizationalUnitId"`
+	OrganizationalUnitPath string      `json:"organizationalUnitPath"`
+	OrganizationalUnitName string      `json:"organizationalUnitName"`
+	Gsuite                 interface{} `json:"gsuite"`
+	Vendor                 string      `json:"vendor"`
+}
+
+//KubernetesAccounts - Represents Kubernetes accounts
+type KubernetesAccounts []struct {
+	ID                       string      `json:"id"`
+	ExternalAccountNumber    string      `json:"externalAccountNumber"`
+	Magellan                 bool        `json:"magellan"`
+	VulnerabilityAssessment  bool        `json:"vulnerabilityAssessment"`
+	RuntimeProtection        bool        `json:"runtimeProtection"`
+	AdmissionControl         bool        `json:"admissionControl"`
+	AdmissionControlFailOpen bool        `json:"admissionControlFailOpen"`
+	Name                     string      `json:"name"`
+	CreationDate             time.Time   `json:"creationDate"`
+	Vendor                   string      `json:"vendor"`
+	OrganizationalUnitID     interface{} `json:"organizationalUnitId"`
+	OrganizationalUnitPath   string      `json:"organizationalUnitPath"`
+	OrganizationalUnitName   string      `json:"organizationalUnitName"`
+	ClusterVersion           interface{} `json:"clusterVersion"`
+}
+
+//KubernetesAccountSummary - Summary information for a K8's account
+type KubernetesAccountSummary struct {
+	ID                      string      `json:"id"`
+	Name                    string      `json:"name"`
+	NumberOfNodes           int         `json:"numberOfNodes"`
+	NumberOfPods            int         `json:"numberOfPods"`
+	NumberOfServices        int         `json:"numberOfServices"`
+	ClusterVersion          interface{} `json:"clusterVersion"`
+	AgentsStatus            string      `json:"agentsStatus"`
+	AgentsStatusDescription string      `json:"agentsStatusDescription"`
 }
 
 //ProtectedAssetRequest is the payload for the protected assett search
@@ -149,8 +192,6 @@ type BundleFilters struct {
 	From                      time.Time                   `json:"from"`
 	To                        time.Time                   `json:"to"`
 }
-
-// TODO: Look at breaking these two entities into smaller structs possibly to make it easier to follow and avoid duplication
 
 //TestResults - Assessment Test Results
 type TestResults []struct {
@@ -304,6 +345,10 @@ type TestResults []struct {
 		Property2 string `json:"property2"`
 	} `json:"additionalFields"`
 }
+
+// TODO: Look at breaking these two entities into smaller structs possibly to make it easier to follow and avoid duplication
+
+// TODO: Pretty sure there should be a DNS Name record in here but it only appears if its set on the instance. Needs testing.
 
 // AzureBundleResults - Results from a ruleset bundle assesment run for Azure
 type AzureBundleResults []struct {
@@ -1077,6 +1122,37 @@ type AWSBundleResults []struct {
 	HasDataSyncStatusIssues bool        `json:"hasDataSyncStatusIssues"`
 	ComparisonCustomID      interface{} `json:"comparisonCustomId"`
 	AdditionalFields        interface{} `json:"additionalFields"`
+}
+
+// BillableAssets data
+type BillableAssets struct {
+	AccountID              int    `json:"accountId"`
+	AccountName            string `json:"accountName"`
+	PurcahseOrderInstances int    `json:"purcahseOrderInstances"`
+	CloudAccountsData      []struct {
+		CloudVendor    string `json:"cloudVendor"`
+		CloudAccountID string `json:"cloudAccountId"`
+		AssetsCount    []struct {
+			AssetType        string `json:"assetType"`
+			TotalCount       int    `json:"totalCount"`
+			BillableCount    int    `json:"billableCount"`
+			NonBillableCount int    `json:"nonBillableCount"`
+		} `json:"assetsCount"`
+	} `json:"cloudAccountsData"`
+	Totals []struct {
+		Vendor           string `json:"vendor"`
+		AssetType        string `json:"assetType"`
+		TotalCount       int    `json:"totalCount"`
+		TotalBillable    int    `json:"totalBillable"`
+		TotalNonBillable int    `json:"totalNonBillable"`
+		TotalOnLineCount int    `json:"totalOnLineCount"`
+	} `json:"totals"`
+	GrandTotals struct {
+		GrandTotalCount       int `json:"grandTotalCount"`
+		GrandTotalBillable    int `json:"grandTotalBillable"`
+		GrandTotalNonBillable int `json:"grandTotalNonBillable"`
+		GrandTotalOnLineCount int `json:"grandTotalOnLineCount"`
+	} `json:"grandTotals"`
 }
 
 /* All Dome9 Entity Types

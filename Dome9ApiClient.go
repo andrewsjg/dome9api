@@ -105,6 +105,82 @@ func (c *Dome9) GetAzureAccounts(ctx context.Context) (AzureCloudAccounts, error
 	return accounts, nil
 }
 
+//GetGCPAccounts - Get all GCP Accounts in Dome9
+func (c *Dome9) GetGCPAccounts(ctx context.Context) (GoogleCloudAccounts, error) {
+	accounts := GoogleCloudAccounts{}
+
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/GoogleCloudAccount", c.BaseURL), nil)
+
+	if err != nil {
+		return accounts, err
+	}
+
+	req = req.WithContext(ctx)
+
+	if err := c.sendRequest(req, &accounts); err != nil {
+		return accounts, err
+	}
+
+	return accounts, nil
+}
+
+//GetKubernetesAccounts - Get all Kubernetes Accounts in Dome9
+func (c *Dome9) GetKubernetesAccounts(ctx context.Context) (KubernetesAccounts, error) {
+	accounts := KubernetesAccounts{}
+
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/KubernetesAccount", c.BaseURL), nil)
+
+	if err != nil {
+		return accounts, err
+	}
+
+	req = req.WithContext(ctx)
+
+	if err := c.sendRequest(req, &accounts); err != nil {
+		return accounts, err
+	}
+
+	return accounts, nil
+}
+
+//GetKubernetesAccountSummary - Get summary information about a Kubernetes account
+func (c *Dome9) GetKubernetesAccountSummary(ctx context.Context, K8AccountID string) (KubernetesAccountSummary, error) {
+	k8summary := KubernetesAccountSummary{}
+
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/KubernetesAccount/%s/AccountSummary", c.BaseURL, K8AccountID), nil)
+
+	if err != nil {
+		return k8summary, err
+	}
+
+	req = req.WithContext(ctx)
+
+	if err := c.sendRequest(req, &k8summary); err != nil {
+		return k8summary, err
+	}
+
+	return k8summary, nil
+}
+
+// GetBillableAssets - Return all billable assets in Dome9
+func (c *Dome9) GetBillableAssets(ctx context.Context) (BillableAssets, error) {
+	billableAssets := BillableAssets{}
+
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/BillableAssets", c.BaseURL), nil)
+
+	if err != nil {
+		return billableAssets, err
+	}
+
+	req = req.WithContext(ctx)
+
+	if err := c.sendRequest(req, &billableAssets); err != nil {
+		return billableAssets, err
+	}
+
+	return billableAssets, nil
+}
+
 //GetProtectedAssets based on filter parameters
 func (c *Dome9) GetProtectedAssets(ctx context.Context, pageSize int, includedEntityTypes []string, excludedEntityTypes []string) (SearchResult, error) {
 
